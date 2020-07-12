@@ -46,7 +46,9 @@ class ModelLGBM(Model):
 
     def feature_importance(self, te_x):
         fold_importance_df = pd.DataFrame()
-        fold_importance_df["Feature"] = te_x.columns.values
+        cname = pd.read_csv('../input/cname.csv')
+        cname_map = cname.set_index('after')['before'].to_dict()
+        fold_importance_df["Feature"] = [cname_map[c] for c in te_x.columns.values]
         fold_importance_df["importance"] = self.model.feature_importance(importance_type='gain')
         return fold_importance_df
 

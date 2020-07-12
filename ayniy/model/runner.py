@@ -1,6 +1,7 @@
 from typing import Union
 
 import matplotlib.pyplot as plt
+import japanize_matplotlib
 import mlflow
 from mlflow import log_metric, log_param, log_artifact
 import numpy as np
@@ -250,12 +251,13 @@ class Runner:
 
         # 特徴量の重要度
         if show_feature_importance:
+            japanize_matplotlib.japanize()
             aggs = feature_importances.groupby('Feature').mean().sort_values(by="importance", ascending=False)
-            cols = aggs[:200].index
+            cols = aggs[:10].index
             pd.DataFrame(aggs.index).to_csv(f'../output/importance/{self.run_name}-fi.csv', index=False)
 
             best_features = feature_importances.loc[feature_importances.Feature.isin(cols)]
-            plt.figure(figsize=(14, 26))
+            plt.figure(figsize=(5, 7))
             sns.barplot(x="importance", y="Feature", data=best_features.sort_values(by="importance", ascending=False))
             plt.title('LightGBM Features (averaged over folds)')
             plt.tight_layout()

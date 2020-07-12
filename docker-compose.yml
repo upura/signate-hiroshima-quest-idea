@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       - $PWD:/working
-    container_name: ayniy-test
+    container_name: baseball-analysis
     working_dir: /working
     ports:
       - 8080:8080

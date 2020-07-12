@@ -32,4 +32,3 @@ if args.run:
     runner = Runner(run_configs, cv)
     runner.run_train_cv()
     runner.run_predict_cv()
-    runner.submission()
