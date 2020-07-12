@@ -18,7 +18,7 @@ def convert2roman(text):
 
 PLAYER_USE_COL = [
     '年度', 'チームID', '選手ID', '位置', '投', '打', '身長', '体重', '生年月日',
-    '出身高校ID', '出身大学ID', '社会人', 'ドラフト年', 'ドラフト種別', 'ドラフト順位', '年俸', '出身国', '出身地'
+    '社会人', 'ドラフト年', 'ドラフト種別', 'ドラフト順位', '年俸', '出身国'
 ]
 PITCH_USE_COL = [
     '球種', '投球位置区域', '年度', '試合内連番', '試合内投球数', '日付',
@@ -36,9 +36,8 @@ DELETE_COL = [
 ]
 CATEGORICAL_COL = [
     '試合種別詳細', '表裏', '投手投球左右', '投手役割', '打者打席左右', '打者守備位置', '投_p', '打_p',
-    'プレイ前走者状況', '出身高校ID_p', '出身大学ID_p', '社会人_p', 'ドラフト種別_p', '出身国_p',
-    '出身地_p', '位置_b', '投_b', '打_b', '出身高校ID_b', '出身大学ID_b', '社会人_b',
-    'ドラフト種別_b', '出身国_b', '出身地_b'
+    'プレイ前走者状況', '社会人_p', 'ドラフト種別_p', '出身国_p',
+    '位置_b', '投_b', '打_b', '社会人_b', 'ドラフト種別_b', '出身国_b'
 ]
 
 
@@ -84,9 +83,11 @@ if __name__ == '__main__':
 
     X_train, X_test, y_train, y_test = train_test_split(
         train.drop('shiaishubetsushousai', axis=1),
-        train['shiaishubetsushousai'], test_size=0.2, random_state=42)
+        train['shiaishubetsushousai'], test_size=0.2,
+        stratify=train['shiaishubetsushousai'],
+        random_state=42)
 
-    fename = 'fe001'
+    fename = 'fe002'
     Data.dump(X_train, f'../input/X_train_{fename}.pkl')
     Data.dump(y_train, f'../input/y_train_{fename}.pkl')
     Data.dump(X_test, f'../input/X_test_{fename}.pkl')
