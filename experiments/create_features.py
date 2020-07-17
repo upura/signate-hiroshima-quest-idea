@@ -62,6 +62,7 @@ if __name__ == '__main__':
         lbl = preprocessing.LabelEncoder()
         train[f] = lbl.fit_transform(list(train[f].values))
 
+    print(train.columns)
     cname = pd.DataFrame()
     cname['before'] = train.columns
     train.columns = [convert2roman(d) for d in train.columns]
