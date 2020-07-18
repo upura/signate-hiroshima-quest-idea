@@ -43,8 +43,8 @@ if __name__ == '__main__':
     X_box = X_train.groupby('uid').last().reset_index()
 
     X_box['出塁率'] = (X_box['プレイ前アウト数'] == X_box['プレイ前アウト数'].shift(-1))
-    X_box['調整済み出塁率'] = X_box['出塁率'] * (1 - X_box['Probability of regular season'])
-    X_player = X_box.groupby('選手名_b').mean()[['出塁率', '調整済み出塁率']].sort_values('出塁率').reset_index()
+    X_box['補正済み出塁率'] = X_box['出塁率'] * (1 - X_box['Probability of regular season'])
+    X_player = X_box.groupby('選手名_b').mean()[['出塁率', '補正済み出塁率']].sort_values('出塁率').reset_index()
     X_player.index = X_player['選手名_b']
 
     japanize_matplotlib.japanize()
